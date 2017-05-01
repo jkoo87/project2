@@ -22,22 +22,22 @@ ActiveRecord::Schema.define(version: 20170501010614) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "category_connectings", force: :cascade do |t|
+  create_table "categorizations", force: :cascade do |t|
     t.integer  "category_id"
     t.integer  "recipe_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["category_id"], name: "index_category_connectings_on_category_id", using: :btree
-    t.index ["recipe_id"], name: "index_category_connectings_on_recipe_id", using: :btree
+    t.index ["category_id"], name: "index_categorizations_on_category_id", using: :btree
+    t.index ["recipe_id"], name: "index_categorizations_on_recipe_id", using: :btree
   end
 
-  create_table "did_try_connectings", force: :cascade do |t|
+  create_table "did_try_users", force: :cascade do |t|
     t.integer  "recipe_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_did_try_connectings_on_recipe_id", using: :btree
-    t.index ["user_id"], name: "index_did_try_connectings_on_user_id", using: :btree
+    t.index ["recipe_id"], name: "index_did_try_users_on_recipe_id", using: :btree
+    t.index ["user_id"], name: "index_did_try_users_on_user_id", using: :btree
   end
 
   create_table "directions", force: :cascade do |t|
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170501010614) do
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
+    t.string   "user_name",              default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -95,24 +96,24 @@ ActiveRecord::Schema.define(version: 20170501010614) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "will_try_connectings", force: :cascade do |t|
+  create_table "will_try_Users", force: :cascade do |t|
     t.integer  "recipe_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_will_try_connectings_on_recipe_id", using: :btree
-    t.index ["user_id"], name: "index_will_try_connectings_on_user_id", using: :btree
+    t.index ["recipe_id"], name: "index_will_try_Users_on_recipe_id", using: :btree
+    t.index ["user_id"], name: "index_will_try_Users_on_user_id", using: :btree
   end
 
-  add_foreign_key "category_connectings", "categories"
-  add_foreign_key "category_connectings", "recipes"
-  add_foreign_key "did_try_connectings", "recipes"
-  add_foreign_key "did_try_connectings", "users"
+  add_foreign_key "categorizations", "categories"
+  add_foreign_key "categorizations", "recipes"
+  add_foreign_key "did_try_users", "recipes"
+  add_foreign_key "did_try_users", "users"
   add_foreign_key "directions", "recipes"
   add_foreign_key "ingredients", "recipes"
   add_foreign_key "recipes", "users"
   add_foreign_key "reviews", "recipes"
   add_foreign_key "reviews", "users"
-  add_foreign_key "will_try_connectings", "recipes"
-  add_foreign_key "will_try_connectings", "users"
+  add_foreign_key "will_try_Users", "recipes"
+  add_foreign_key "will_try_Users", "users"
 end

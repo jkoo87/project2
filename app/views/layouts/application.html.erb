@@ -9,6 +9,31 @@
   </head>
 
   <body>
+    <div class="logoWrapper">
+      <%= link_to image_tag("logo.png", class: "logo"),root_path%>
+    </div>
+
+    <nav class="mainNav">
+      <p class="mainNavMenu"><%= link_to 'Menu', root_path %></p>
+      <p class="mainNavMenu"><%= link_to 'Menu', root_path %></p>
+
+        <% if current_user %>
+          <p class="mainNavMenu">Welcome, <%= current_user.email %></p>
+          <p class="mainNavMenu"><%= link_to 'Signout', destroy_user_session_path, :method => :delete %></p>
+        <% else %>
+          <p class="mainNavMenu"><%= link_to 'Signup', new_user_registration_path %></p>
+          <p class="mainNavMenu"><%= link_to 'Login', new_user_session_path %></p>
+        <% end %>
+
+    </nav>
+
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <div class ="mainBody">
     <%= yield %>
+    </div>
+
   </body>
 </html>

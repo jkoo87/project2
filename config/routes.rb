@@ -3,12 +3,12 @@ Rails.application.routes.draw do
 
   root to: 'categories#index'
 
-  resources :categories
+  resources :categories do
 
-  resources :recipes do
-    resources :reviews, except: [:index, :show]
-    resources :directions, except: [:index, :show]
-    resources :categories, except: [:index, :show]
+      resources :recipes do
+        resources :reviews, except: [:index, :show]
+        resources :directions, except: [:index, :show]
+      end
   end
 
   resources :recipes, only: [:index, :show] do

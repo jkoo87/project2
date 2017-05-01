@@ -1,0 +1,8 @@
+
+
+    <% @categories.each do |category| %>
+      <div class="categoryWrapper">
+        <%= link_to image_tag("#{category.img_url}", class: "categoryImageIndex"), category_recipes_path(category)%>
+        <div class="categoryIndexText"><a href="/categories/<%= category.id %>/recipes"><%= category.food_catagory %></a></div>
+      </div>
+    <% end %>

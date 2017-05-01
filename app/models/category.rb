@@ -1,3 +1,4 @@
 class Category < ApplicationRecord
-  has_many :recipes, through: :category_connectings
+  has_many :categorizations
+  has_many :recipes, through: :categorizations
 end
