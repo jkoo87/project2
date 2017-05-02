@@ -1,0 +1,78 @@
+<div class = "recipeContainer">
+
+    <div><h1><%= @recipe.title  %></h1></div>
+
+    <div><img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/></div>
+
+    <% if @recipe.created_at != @recipe.updated_at %>
+      <div>
+        <p class="createdTime">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> by <%= @recipe.user.email %></p>
+      </div>
+    <% else %>
+      <div>
+        <p class="createdTime">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %> by <%= @recipe.user.email %></p>
+      </div>
+    <% end %>
+    <% if current_user == @recipe.user %>
+      <div>
+      <%= link_to "Edit Post", edit_recipe_path(@recipe) %>
+      <%= link_to "Delete Post", recipe_path(@recipe), method: :delete, data: { confirm: "Would you like to delete this recipe?"} %>
+      </div>
+    <% end %>
+
+    <div class="directionsContainer">
+        <h2>Directions</h2>
+        <% @directions.each do |direction| %>
+        <div class="">
+          <% if direction.recipe_direction != "" %>
+          <div class="number"><%= @num += 1  %></div>
+          <% end %>
+          <div class="list"><p><%= direction.recipe_direction %></p></div>
+        </div>
+        <% end %>
+    </div>
+
+    <div class="ingredientsContainer">
+        <h2>Ingredients</h2>
+        <% @ingredients.each do |ingredient| %>
+        <div class="">
+          <% if ingredient.list != "" %>
+          <div class="number"><%= @num += 1  %></div>
+          <% end %>
+          <div class="list"><p><%= ingredient.list %></p></div>
+        </div>
+        <% end %>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class='comments'>
+  <h3>Comments</h3>
+  <%= link_to "Add New Review", new_recipe_review_path(@recipe) %>
+  <% @recipe.reviews.each do |review| %>
+    <div>
+      <time>Updated <%= review.strftime("%b %e, %l:%M %p") %></time>
+      <p>
+	<%= review.comment %>, 	<%= review.user.email %>
+      </p>
+  <% if current_user == @recipe.user %>
+      <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>|
+      <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
+  <% end %>
+
+    </div>
+  <% end %>
+  </div>
+
+
+
+
+</div>

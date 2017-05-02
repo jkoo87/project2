@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170501010614) do
 
   create_table "recipes", force: :cascade do |t|
     t.string   "title",         null: false
+    t.string   "description"
     t.string   "img_url"
     t.string   "cooking_time",  null: false
     t.string   "cooking_level", null: false

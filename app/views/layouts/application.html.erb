@@ -3,37 +3,49 @@
   <head>
     <title>Cookingmyself</title>
     <%= csrf_meta_tags %>
-
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div class="logoWrapper">
-      <%= link_to image_tag("logo.png", class: "logo"),root_path%>
-    </div>
-
-    <nav class="mainNav">
-      <p class="mainNavMenu"><%= link_to 'Menu', root_path %></p>
-      <p class="mainNavMenu"><%= link_to 'Menu', root_path %></p>
-
-        <% if current_user %>
-          <p class="mainNavMenu">Welcome, <%= current_user.email %></p>
-          <p class="mainNavMenu"><%= link_to 'Signout', destroy_user_session_path, :method => :delete %></p>
-        <% else %>
-          <p class="mainNavMenu"><%= link_to 'Signup', new_user_registration_path %></p>
-          <p class="mainNavMenu"><%= link_to 'Login', new_user_session_path %></p>
+        <% if current_page? root_path  %>
+            <div class="logoWrapper">
+              <%= link_to image_tag("logo.png", class: "logo"),root_path%>
+            </div>
         <% end %>
 
-    </nav>
+      <nav class="mainNav">
+
+        <% if current_page? root_path  %>
+        <div class="mainNavMenu"><%= link_to 'List All Recipes', root_path %></div>
+        <% else %>
+        <div class="mainNavMenu"><%= link_to 'Main', root_path %></div>
+        <% end %>
+        <div class="mainNavMenu"><%= link_to 'Create Recipes', new_recipe_path %></div>
+
+        <% unless current_page?(root_path)  %>
+          <div class="logoNavMenu"><%= link_to image_tag("logo.png", class: "logoNav"),root_path%></div>
+        <% end %>
+
+          <% if current_user %>
+            <div class="mainNavMenu"><%= link_to 'User Account', destroy_user_session_path, :method => :delete %></div>
+            <div class="mainNavMenu"><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, data: { confirm: "Would you like to sign out?"} %></div>
+          <% else %>
+            <div class="mainNavMenu"><%= link_to 'Sign In', new_user_session_path %></div>
+            <div class="mainNavMenu"><%= link_to 'Add Account', new_user_registration_path %></div>
+          <% end %>
+
+      </nav>
 
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
-    <div class ="mainBody">
-    <%= yield %>
-    </div>
+      <% flash.each do |type, message| %>
+        <p class="flash <%= type %>"><%= message %></p>
+      <% end %>
 
+      <div class ="mainBody">
+        <%= yield %>
+      </div>
   </body>
 </html>

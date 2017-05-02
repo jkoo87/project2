@@ -1,0 +1,72 @@
+<div class = "formContainer">
+<%= form_for @recipe, data: { confirm: "Are you done?"} do |f| %>
+
+  <div class="formDiv">
+    <%= f.label :title, class: "formTextLabel" %>
+    <%= f.text_field :title, class: "formTextInput" %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label "Image Link", class: "formTextLabel" %>
+    <%= f.text_field :img_url, class: "formTextInput" %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label :description, class: "formTextLabel" %>
+    <%= f.text_area :description, class: "formTextInput" %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label "Cooking Time", class: "formTextLabel" %>
+    <%= f.text_field :cooking_time, class: "formTextInput"  %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label "Cooking Level", class: "formTextLabel" %>
+    <%= f.label "1", class: "radioButtonLabel"  %>
+    <%= f.radio_button :cooking_level, 1 %>
+    <%= f.label "2", class: "radioButtonLabel"  %>
+    <%= f.radio_button :cooking_level, 2 %>
+    <%= f.label "3", class: "radioButtonLabel"  %>
+    <%= f.radio_button :cooking_level, 3 %>
+    <%= f.label "4", class: "radioButtonLabel"  %>
+    <%= f.radio_button :cooking_level, 4 %>
+    <%= f.label "5", class: "radioButtonLabel"  %>
+    <%= f.radio_button :cooking_level, 5 %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label "Allows Reviews", class: "formTextLabel"  %>
+    <%= f.label "Yes", class: "radioButtonLabel"  %>
+    <%= f.radio_button :allow_reviews, "true" %>
+    <%= f.label "No", class: "radioButtonLabel"  %>
+    <%= f.radio_button :allow_reviews, "false" %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label "Directions(w/o order number)", class: "formTextLabel" %>
+  </div>
+      <%= f.fields_for :directions do |direction| %>
+          <div class="formDiv">
+            <%= direction.text_area :recipe_direction, class: "formTextInput" %>
+          </div>
+      <% end %>
+
+  <div class="formDiv">
+    <%= f.label "Ingredients(w/o order number)", class: "formTextLabel" %>
+  </div>
+      <%= f.fields_for :ingredients do |ingredient| %>
+          <div class="formDiv">
+            <%= ingredient.text_field :list, class: "formTextInput" %>
+          </div>
+      <% end %>
+
+
+
+  <div class="formDiv">
+    <%= f.submit "Save", class: "submitButton" %>
+  </div>
+
+
+<% end  %>
+<div>
