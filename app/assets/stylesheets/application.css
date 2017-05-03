@@ -289,7 +289,8 @@ input[id="ingredientFormCheckBox"]:checked + label {
   color: white;
   filter: drop-shadow(2px 2px 2px orange);
   font-style: italic;
-  margin: 0;
+
+  margin-top: 5px;
 }
 .userNameText{
   margin-bottom: 0;
@@ -319,6 +320,16 @@ input[id="ingredientFormCheckBox"]:checked + label {
   margin: 0 auto;
 }
 
+.recipeDescriptionMiniDiv1, .recipeDescriptionMiniDiv2 {
+  border-right: 1px dotted;
+  padding: 0 20px ;
+}
+
+.recipeDescriptionMiniDiv3 {
+  padding: 0 10px;
+}
+
+
 .recipeDescriptionMini {
   margin-left: 10px;
 }
@@ -345,6 +356,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
   font-size: 50px;
   margin:0;
   color: orange;
+    filter: drop-shadow(2px 1px 1px black);
 }
 
 .tryButtonOn, .tryButtonOff{
@@ -414,14 +426,34 @@ input[id="ingredientCheckBox"]:checked + label {
   width: 80%;
   text-align: left;
   transition: all 0.7s ease;
-
   font-weight: bold;
 }
-/*.directionList:hover {
-  background-color: #ADD8E6;
-  font-size: 20px;
-}*/
 
 input[id="directionCheckBox"]:checked + label {
   background-color: #ADD8E6;
+}
+
+
+
+
+
+
+
+.reviewDiv{
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+}
+
+.reviewEditDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+}
+
+
+input[id="reviewCheckBox"]:checked + label {
+  display: none;
 }

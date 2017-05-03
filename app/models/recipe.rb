@@ -13,8 +13,8 @@ class Recipe < ApplicationRecord
 
 
   belongs_to :user
-  has_many :will_try_users
-  has_many :did_try_users
+  has_many :will_try_users, dependent: :destroy
+  has_many :did_try_users, dependent: :destroy
   has_many :users, through: :will_try_users
   has_many :users, through: :did_try_users
 end

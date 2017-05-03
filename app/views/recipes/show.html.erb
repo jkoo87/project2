@@ -1,7 +1,7 @@
 <h1 class="recipesIndexTitle"><%= @recipe.title  %></h1>
   <% if @recipe.created_at != @recipe.updated_at %>
-  <h2 class="userNameText"> by <%= @recipe.user.email %> </h2>
-  <p class="timeText">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> </p>
+    <h2 class="userNameText"> by <%= @recipe.user.email %> </h2>
+    <p class="timeText">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> </p>
   <% else %>
     <h2> by <%= @recipe.user.email %> </h2>
     <p class="timeText">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %></p>
@@ -17,9 +17,7 @@
 <div class = "recipeContainer">
 
 
-      <img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/>
-
-
+    <img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/>
 
     <div class="recipeDiv">
       <div class="recipeDescription">
@@ -35,7 +33,7 @@
       </div>
       <hr>
       <div class="recipeRatingDiv">
-          <div>
+          <div class="recipeDescriptionMiniDiv1">
             <div class="recipeDescriptionMini">
               Save it!
             </div>
@@ -50,41 +48,31 @@
             </div>
           </div>
 
-          <div>
+          <div class="recipeDescriptionMiniDiv2">
               <div class="recipeDescriptionMini">
                 I did it!
               </div>
 
               <div class="recipeDescriptionMini">
                 <% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
-                  <%= link_to "&hearts;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+                  <%= link_to "&#x02713;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
                 <% else %>
-                  <%= link_to "&hearts;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
+                  <%= link_to "&#x02713;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
                 <% end %>
                 <%#= @recipe.did_try_users.count %>
               </div>
             </div>
 
-            <div>
+            <div class="recipeDescriptionMiniDiv3">
                 <div class="recipeDescriptionMini">
                   Level
                 </div>
                 <div class="recipeDescriptionMini">
-                  <p class="cookingLevelText"><%=@recipe.cooking_level %></p>
+                  <p class="cookingLevelText"><%=@recipe.cooking_level %>/5</p>
                 </div>
-
             </div>
-      </div>
-
-
-
-
-
-
-
-
-    </div>
-
+          </div>
+  </div>
 
 
 
@@ -97,7 +85,8 @@
           <%end%>
     </div>
 
-    <h2 class="ingredientHead">Directions (time:<%= @recipe.cooking_time %>)<hr/></h2>
+
+    <h2 class="ingredientHead">Directions (time: <%= @recipe.cooking_time %>)<hr/></h2>
       <div class="directionsContainer">
 
         <% @directions.each do |direction| %>
@@ -112,35 +101,25 @@
 
 
 
+  <div class='review'>
+
+  <h3>Review</h3>
 
 
 
-
-
-
-
-
-
-
-  <div class='comments'>
-  <h3>Comments</h3>
-  <%= link_to "Add New Review", new_recipe_review_path(@recipe) %>
   <% @recipe.reviews.each do |review| %>
-    <div>
-      <time>Updated <%= review.strftime("%b %e, %l:%M %p") %></time>
-      <p>
-	<%= review.comment %>, 	<%= review.user.email %>
-      </p>
-  <% if current_user == @recipe.user %>
-      <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>|
-      <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
-  <% end %>
-
+    <hr/>
+    <div class="reviewDiv">
+      <div><%= review.rating %></div>
+      <div><%= review.comment %> by 	<%= review.user.email %></div>
+      <% if current_user == @recipe.user %>
+      <div class="reviewEditDiv">
+          <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>|
+          <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
+      </div>
+      <% end %>
     </div>
   <% end %>
-  </div>
 
-
-
-
-</div>
+  <hr/>
+  <input id="reviewCheckBox" type="checkbox">Hide Create Review<label for="reviewCheckBox">  <%= render "reviews/form" %> </label>

@@ -1,0 +1,28 @@
+<div class = "formContainer">
+<%= form_for [@recipe, @recipe.reviews.new], method: :post, data: { confirm: "Are you done?"} do |f| %>
+
+  <div class="formDiv">
+    <%= f.label :rating, class: "formTextLabel"  %>
+    <%= f.label "1", class: "radioButtonLabel"  %>
+    <%= f.radio_button :rating, 1 %>
+    <%= f.label "2", class: "radioButtonLabel"  %>
+    <%= f.radio_button :rating, 2 %>
+    <%= f.label "3", class: "radioButtonLabel"  %>
+    <%= f.radio_button :rating, 3 %>
+    <%= f.label "4", class: "radioButtonLabel"  %>
+    <%= f.radio_button :rating, 4 %>
+    <%= f.label "5", class: "radioButtonLabel"  %>
+    <%= f.radio_button :rating, 5 %>
+  </div>
+
+  <div class="formDiv">
+    <%= f.label :comment, class: "formTextLabel"  %>
+    <%= f.text_area :comment, class: "formTextInput" %>
+  </div>
+
+  <div class="formDiv">
+  <%= f.submit "Save", class: "submitButton" %>
+  </div>
+
+<% end  %>
+</div>
