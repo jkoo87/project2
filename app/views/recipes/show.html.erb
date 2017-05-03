@@ -35,22 +35,50 @@
       </div>
       <hr>
       <div class="recipeRatingDiv">
+          <div>
             <div class="recipeDescriptionMini">
               Save it!
             </div>
+
             <div class="recipeDescriptionMini">
-              I did it!
+              <% if @recipe.will_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
+                <%= link_to "&hearts;".html_safe, remove_will_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+              <% else %>
+                <%= link_to "&hearts;".html_safe, add_will_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
+              <% end %>
+              <%#= @recipe.will_try_users.count %>
+            </div>
+          </div>
+
+          <div>
+              <div class="recipeDescriptionMini">
+                I did it!
+              </div>
+
+              <div class="recipeDescriptionMini">
+                <% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
+                  <%= link_to "&hearts;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+                <% else %>
+                  <%= link_to "&hearts;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
+                <% end %>
+                <%#= @recipe.did_try_users.count %>
+              </div>
+            </div>
+
+            <div>
+                <div class="recipeDescriptionMini">
+                  Level
+                </div>
+                <div class="recipeDescriptionMini">
+                  <p class="cookingLevelText"><%=@recipe.cooking_level %></p>
+                </div>
+
             </div>
       </div>
 
 
-<% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
-  <%= link_to "&hearts;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
-<% else %>
-  <%= link_to "&hearts;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
-<% end %>
 
-<%= @recipe.users.count %>
+
 
 
 
@@ -69,7 +97,7 @@
           <%end%>
     </div>
 
-    <h2 class="ingredientHead">Directions<hr/></h2>
+    <h2 class="ingredientHead">Directions (time:<%= @recipe.cooking_time %>)<hr/></h2>
       <div class="directionsContainer">
 
         <% @directions.each do |direction| %>

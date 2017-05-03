@@ -97,13 +97,13 @@ ActiveRecord::Schema.define(version: 20170501010614) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "will_try_Users", force: :cascade do |t|
+  create_table "will_try_users", force: :cascade do |t|
     t.integer  "recipe_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_will_try_Users_on_recipe_id", using: :btree
-    t.index ["user_id"], name: "index_will_try_Users_on_user_id", using: :btree
+    t.index ["recipe_id"], name: "index_will_try_users_on_recipe_id", using: :btree
+    t.index ["user_id"], name: "index_will_try_users_on_user_id", using: :btree
   end
 
   add_foreign_key "categorizations", "categories"
@@ -115,6 +115,6 @@ ActiveRecord::Schema.define(version: 20170501010614) do
   add_foreign_key "recipes", "users"
   add_foreign_key "reviews", "recipes"
   add_foreign_key "reviews", "users"
-  add_foreign_key "will_try_Users", "recipes"
-  add_foreign_key "will_try_Users", "users"
+  add_foreign_key "will_try_users", "recipes"
+  add_foreign_key "will_try_users", "users"
 end

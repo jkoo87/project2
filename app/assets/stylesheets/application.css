@@ -276,6 +276,8 @@ input[id="ingredientFormCheckBox"]:checked + label {
 
 
 
+
+
 .recipeContainer {
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -304,7 +306,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
 }
 
 .recipeDiv {
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -317,9 +319,10 @@ input[id="ingredientFormCheckBox"]:checked + label {
   margin: 0 auto;
 }
 
-.recipeDiv:last-child < *{
-  font-size: 10px;
+.recipeDescriptionMini {
+  margin-left: 10px;
 }
+
 .recipeRatingDiv{
   display: flex;
   justify-content:center
@@ -338,29 +341,37 @@ input[id="ingredientFormCheckBox"]:checked + label {
   filter: drop-shadow(3px 2px 1px black);
 }
 
+.cookingLevelText{
+  font-size: 50px;
+  margin:0;
+  color: orange;
+}
+
+.tryButtonOn, .tryButtonOff{
+    font-size: 50px;
+    text-decoration: none;
+}
+
 .tryButtonOn {
-  text-decoration: none;
   color: red;
 }
 
 .tryButtonOff {
-  text-decoration: none;
   color: black;
 }
 
 .tryButtonOn:visited, .tryButtonOn:visited {
   text-decoration: none;
+  font-size: 30px;
 }
 
 
 .ingredientsContainer{
   margin: 0 auto;
-
   width: 60%;
   column-count: 2;
   column-gap: 0px;
   column-rule: 1px dotted brown;
-
 }
 
 hr{
@@ -403,6 +414,8 @@ input[id="ingredientCheckBox"]:checked + label {
   width: 80%;
   text-align: left;
   transition: all 0.7s ease;
+
+  font-weight: bold;
 }
 /*.directionList:hover {
   background-color: #ADD8E6;

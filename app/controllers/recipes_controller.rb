@@ -59,17 +59,17 @@ class RecipesController < ApplicationController
   end
 
 
-  # def add_will_try_user
-  #   @recipe = Recipe.find(params[:id])
-  #   @recipe.will_try_users.create(user: current_user)
-  #   redirect_to :back
-  # end
-  #
-  #
-  # def remove_will_try_user
-  #   WillTryUser.find_by(user: current_user, recipe_id: params[:id]).destroy
-  #   redirect_to :back
-  # end
+  def add_will_try_user
+    @recipe = Recipe.find(params[:id])
+    @recipe.will_try_users.create(user: current_user)
+    redirect_to :back
+  end
+
+
+  def remove_will_try_user
+    WillTryUser.find_by(user: current_user, recipe_id: params[:id]).destroy
+    redirect_to :back
+  end
 
 
 
