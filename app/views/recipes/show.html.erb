@@ -1,48 +1,88 @@
+<h1 class="recipesIndexTitle"><%= @recipe.title  %></h1>
+  <% if @recipe.created_at != @recipe.updated_at %>
+  <h2 class="userNameText"> by <%= @recipe.user.email %> </h2>
+  <p class="timeText">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> </p>
+  <% else %>
+    <h2> by <%= @recipe.user.email %> </h2>
+    <p class="timeText">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %></p>
+  <% end %>
+
+  <% if current_user == @recipe.user %>
+      <div>
+      <%= link_to "Edit Post |", edit_recipe_path(@recipe), class: "recipeEditDelete" %>
+      <%= link_to "| Delete Post", recipe_path(@recipe), class: "recipeEditDelete", method: :delete, data: { confirm: "Would you like to delete this recipe?"} %>
+      </div>
+  <% end %>
+
 <div class = "recipeContainer">
 
-    <div><h1><%= @recipe.title  %></h1></div>
 
-    <div><img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/></div>
+      <img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/>
 
-    <% if @recipe.created_at != @recipe.updated_at %>
-      <div>
-        <p class="createdTime">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> by <%= @recipe.user.email %></p>
-      </div>
-    <% else %>
-      <div>
-        <p class="createdTime">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %> by <%= @recipe.user.email %></p>
-      </div>
-    <% end %>
-    <% if current_user == @recipe.user %>
-      <div>
-      <%= link_to "Edit Post", edit_recipe_path(@recipe) %>
-      <%= link_to "Delete Post", recipe_path(@recipe), method: :delete, data: { confirm: "Would you like to delete this recipe?"} %>
-      </div>
-    <% end %>
 
-    <div class="directionsContainer">
-        <h2>Directions</h2>
-        <% @directions.each do |direction| %>
-        <div class="">
-          <% if direction.recipe_direction != "" %>
-          <div class="number"><%= @num += 1  %></div>
+
+    <div class="recipeDiv">
+      <div class="recipeDescription">
+          <% @recipe.categorizations.each do |categorization| %>
+          <div class="categoryImageMini">
+            <%= link_to image_tag(categorization.category.img_url, class: "categoryImageMiniMini"), category_recipes_path(categorization.category) %>
+          </div>
           <% end %>
-          <div class="list"><p><%= direction.recipe_direction %></p></div>
-        </div>
-        <% end %>
+      </div>
+      <hr>
+      <div class="recipeDescription">
+        <p class="description">"<%= @recipe.description %>"</p>
+      </div>
+      <hr>
+      <div class="recipeRatingDiv">
+            <div class="recipeDescriptionMini">
+              Save it!
+            </div>
+            <div class="recipeDescriptionMini">
+              I did it!
+            </div>
+      </div>
+
+
+<% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
+  <%= link_to "&hearts;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+<% else %>
+  <%= link_to "&hearts;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
+<% end %>
+
+<%= @recipe.users.count %>
+
+
+
+
     </div>
 
+
+
+
+    <h2 class="ingredientHead"> Ingredients<hr/></h2>
     <div class="ingredientsContainer">
-        <h2>Ingredients</h2>
-        <% @ingredients.each do |ingredient| %>
-        <div class="">
-          <% if ingredient.list != "" %>
-          <div class="number"><%= @num += 1  %></div>
+          <% @ingredients.each do |ingredient| %>
+            <% if ingredient.list != "" %>
+              <div class="list"> <input id="ingredientCheckBox" type="checkbox"><label for="ingredientCheckBox"><%= ingredient.list %></label></div>
+            <% end %>
+          <%end%>
+    </div>
+
+    <h2 class="ingredientHead">Directions<hr/></h2>
+      <div class="directionsContainer">
+
+        <% @directions.each do |direction| %>
+        <div class="directionsDiv">
+          <% if direction.recipe_direction != "" %>
+          <div class="number"><%= @num += 1  %>.</div>
+          <div class="directionList"><input id="directionCheckBox" type="checkbox"><label for="directionCheckBox"><%= direction.recipe_direction %></label></div>
           <% end %>
-          <div class="list"><p><%= ingredient.list %></p></div>
         </div>
         <% end %>
     </div>
+
+
 
 
 

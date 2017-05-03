@@ -35,6 +35,18 @@
     <%= f.radio_button :cooking_level, 5 %>
   </div>
 
+  <% if current_page? new_recipe_path  %>
+  <div class="formDiv">
+    <%= f.label "Tag", class: "formTextLabel" %>
+  </div>
+      <div class="formDiv">
+        <%= f.fields_for :categorizations do |categorization| %>
+          <%= categorization.select :category_id, @categories.collect { |p| [ "#{p.food_catagory}", p.id ] }, include_blank: true %>
+        <% end %>
+      </div>
+  <% end %>
+
+
   <div class="formDiv">
     <%= f.label "Allows Reviews", class: "formTextLabel"  %>
     <%= f.label "Yes", class: "radioButtonLabel"  %>
@@ -43,23 +55,32 @@
     <%= f.radio_button :allow_reviews, "false" %>
   </div>
 
+
+
+    <div class="formDiv">
+      <%= f.label "Ingredients(w/o order number)", class: "formTextLabel" %>
+    </div>
+    <input id="ingredientFormCheckBox" type="checkbox" checked="checked">Hide<label for="ingredientFormCheckBox">
+        <%= f.fields_for :ingredients do |ingredient| %>
+            <div class="formDiv">
+              <%= ingredient.text_field :list, class: "formTextInput" %>
+            </div>
+        <% end %>
+    </label>
+
+
+
   <div class="formDiv">
     <%= f.label "Directions(w/o order number)", class: "formTextLabel" %>
   </div>
+  <input id="DirectionFormCheckBox" type="checkbox" checked="checked">Hide<label for="DirectionFormCheckBox">
       <%= f.fields_for :directions do |direction| %>
           <div class="formDiv">
             <%= direction.text_area :recipe_direction, class: "formTextInput" %>
           </div>
       <% end %>
+      </label>
 
-  <div class="formDiv">
-    <%= f.label "Ingredients(w/o order number)", class: "formTextLabel" %>
-  </div>
-      <%= f.fields_for :ingredients do |ingredient| %>
-          <div class="formDiv">
-            <%= ingredient.text_field :list, class: "formTextInput" %>
-          </div>
-      <% end %>
 
 
 

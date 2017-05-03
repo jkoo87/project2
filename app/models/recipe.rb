@@ -1,8 +1,8 @@
 class Recipe < ApplicationRecord
   # validates_inclusion_of :allow_reviews, :in => [true, false]
-  has_many :categorizations
-  has_many :catagories, through: :categorizations
-  accepts_nested_attributes_for :categorizations
+  has_many :categorizations, inverse_of: :recipe, dependent: :destroy
+  has_many :categories, through: :categorizations
+  accepts_nested_attributes_for :categorizations, reject_if: :all_blank
 
   has_many :ingredients, inverse_of: :recipe, dependent: :destroy
   accepts_nested_attributes_for :ingredients, allow_destroy: true
@@ -10,7 +10,6 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :directions, allow_destroy: true
 
   has_many :reviews, dependent: :destroy
-
 
 
   belongs_to :user

@@ -1,5 +1,40 @@
+<% if @category %>
+
+      <div class="categoryImageMiniWrapper">
+        <%= link_to image_tag(@category.img_url, class: "categoryImageMini"), root_path %><span class="categoryMiniSpan"><%= @category.food_catagory %></span>
+      </div>
+      <div class="indexRecipeImageContainer">
+      <% @category.categorizations.each do |categorization| %>
+        <div class="indexRecipeImageDiv">
+          <%= link_to image_tag("#{categorization.recipe.img_url}", class: "indexRecipeImage"), category_recipe_path(@category, categorization.recipe.id) %>
+          <div class="recipeIndexText"><%= categorization.recipe.title %></div>
+          <div class="test">
+          <div class="indexRecipeSmall">Rate:</div>
+          <div class="indexRecipeSmall">Level: <%= categorization.recipe.cooking_level %></div>
+          </div>
+          <div class="indexRecipe">Created by <%= categorization.recipe.user.email %></div>
+        </div>
+      <% end %>
+      </div>
+
+    <% else %>
+
+    <h1 class="recipesIndexTitle">All recipes</h1>
+      <div class="indexRecipeImageContainer">
+      <% @recipes.each do |recipe| %>
+        <div class="indexRecipeImageDiv">
+          <%= link_to image_tag("#{recipe.img_url}", class: "indexRecipeImage"), recipe_path(recipe) %>
+          <div class="recipeIndexText"><%= recipe.title %></div>
+          <div class="test">
+          <div class="indexRecipeSmall">Rate:</div>
+          <div class="indexRecipeSmall">Level: <%= recipe.cooking_level %></div>
+          </div>
+          <div class="indexRecipe">Created by <%= recipe.user.email %></div>
+        </div>
+      <% end %>
+      </div>
 
 
-<div class="categoryImageMiniWrapper">
-  <%= link_to image_tag(@category.img_url, class: "categoryImageMini"), root_path %><span class="categoryMiniSpan"><%= @category.food_catagory %><span>
-</div>
+
+
+<% end %>
