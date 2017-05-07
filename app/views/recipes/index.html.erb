@@ -9,8 +9,12 @@
           <%= link_to image_tag("#{categorization.recipe.img_url}", class: "indexRecipeImage"), category_recipe_path(@category, categorization.recipe.id) %>
           <div class="recipeIndexText"><%= categorization.recipe.title %></div>
           <div class="test">
-          <div class="indexRecipeSmall">Rate:</div>
-          <div class="indexRecipeSmall">Level: <%= categorization.recipe.cooking_level %></div>
+            <% if categorization.recipe.reviews.average(:rating) == nil %>
+              <div class="indexRecipeSmall">Not Rated Yet</div>
+            <% else %>
+              <div class="indexRecipeSmall"><%= show_star(categorization.recipe.reviews.average(:rating).round(1)) %></div>
+            <% end %>
+          <div class="indexRecipeSmall">Lv: <%= show_level(categorization.recipe.cooking_level.to_i) %></div>
           </div>
           <div class="indexRecipe">Created by <%= categorization.recipe.user.email %></div>
         </div>
@@ -22,15 +26,19 @@
     <h1 class="recipesIndexTitle">All recipes</h1>
       <div class="indexRecipeImageContainer">
       <% @recipes.each do |recipe| %>
-        <div class="indexRecipeImageDiv">
-          <%= link_to image_tag("#{recipe.img_url}", class: "indexRecipeImage"), recipe_path(recipe) %>
-          <div class="recipeIndexText"><%= recipe.title %></div>
-          <div class="test">
-          <div class="indexRecipeSmall">Rate:</div>
-          <div class="indexRecipeSmall">Level: <%= recipe.cooking_level %></div>
+          <div class="indexRecipeImageDiv">
+            <%= link_to image_tag("#{recipe.img_url}", class: "indexRecipeImage"), recipe_path(recipe) %>
+            <div class="recipeIndexText"><%= recipe.title %></div>
+            <div class="test">
+            <% if recipe.reviews.average(:rating) == nil %>
+              <div class="indexRecipeSmall">Not Rated Yet</div>
+            <% else %>
+              <div class="indexRecipeSmall"><%= show_star(recipe.reviews.average(:rating).round(1)) %> (<%= recipe.reviews.count %>)</div>
+            <% end %>
+            <div class="indexRecipeSmall">Lv: <%= show_level(recipe.cooking_level.to_i) %></div>
+            </div>
+            <div class="indexRecipe">Created by <%= recipe.user.email %></div>
           </div>
-          <div class="indexRecipe">Created by <%= recipe.user.email %></div>
-        </div>
       <% end %>
       </div>
 

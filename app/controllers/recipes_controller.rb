@@ -1,13 +1,14 @@
 class RecipesController < ApplicationController
 
   def index
+    @recipes = Recipe.all.order("created_at DESC")
+    @reviews = Review.all
     if params[:category_id]
     @category = Category.find(params[:category_id])
-    @recipes = Recipe.all.order("created_at DESC")
-    else
-    @recipes = Recipe.all.order("created_at DESC")
     end
   end
+
+
 
   def new
     @recipe = Recipe.new
