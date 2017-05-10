@@ -10,7 +10,9 @@
           <div class="recipeIndexText"><p class="recipeIndexTitle"><%= categorization.recipe.title %></p></div>
           <div class="test">
             <div class="indexRecipeSmall">Lv. <%= show_level(categorization.recipe.cooking_level.to_i) %></div>
-            <% if categorization.recipe.reviews.average(:rating) == nil %>
+            <% if categorization.recipe.allow_reviews == false  %>
+              <div class="indexRecipeSmall">Review disabled</div>
+            <% elsif categorization.recipe.reviews.average(:rating) == nil %>
               <div class="indexRecipeSmall">Not Rated Yet</div>
             <% else %>
               <div class="indexRecipeSmall"><%= show_star(categorization.recipe.reviews.average(:rating).round(1)) %> (<%= categorization.recipe.reviews.count %>)</div>
@@ -31,7 +33,9 @@
             <div class="recipeIndexText"><p class="recipeIndexTitle"><%= recipe.title %></p></div>
             <div class="test">
             <div class="indexRecipeSmall">Lv. <%= show_level(recipe.cooking_level.to_i) %></div>
-            <% if recipe.reviews.average(:rating) == nil %>
+            <% if recipe.allow_reviews == false  %>
+              <div class="indexRecipeSmall">Review disabled</div>
+            <% elsif recipe.reviews.average(:rating) == nil %>
               <div class="indexRecipeSmall">Not Rated Yet</div>
             <% else %>
               <div class="indexRecipeSmall"><%= show_star(recipe.reviews.average(:rating).round(1)) %> (<%= recipe.reviews.count %>)</div>

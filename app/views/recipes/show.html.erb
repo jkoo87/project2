@@ -1,83 +1,78 @@
-<div class="recipesIndexTitleContainer"><h1 class="recipesIndexTitle"><%= @recipe.title  %></h1></div>
-  <% if @recipe.created_at != @recipe.updated_at %>
-    <h2 class="userNameText"> by <%= @recipe.user.email %> </h2>
-    <p class="timeText">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> </p>
-  <% else %>
-    <h2> by <%= @recipe.user.email %> </h2>
-    <p class="timeText">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %></p>
-  <% end %>
 
-  <% if current_user == @recipe.user %>
-      <div>
-      <%= link_to "Edit Post |", edit_recipe_path(@recipe), class: "recipeEditDelete" %>
-      <%= link_to "| Delete Post", recipe_path(@recipe), class: "recipeEditDelete", method: :delete, data: { confirm: "Would you like to delete this recipe?"} %>
-      </div>
-  <% end %>
+<h1 class="recipesIndexTitle"><%= @recipe.title  %></h1>
+
+<% if @recipe.created_at != @recipe.updated_at %>
+<h2 class="userNameText"> by <%= @recipe.user.email %> </h2>
+<p class="timeText">Updated: <%= @recipe.updated_at.strftime("%b %e, %l:%M %p") %> </p>
+<% else %>
+<h2> by <%= @recipe.user.email %> </h2>
+<p class="timeText">Created: <%= @recipe.created_at.strftime("%b %e, %l:%M %p") %></p>
+<% end %>
+
+<% if current_user == @recipe.user %>
+<div>
+  <%= link_to "Edit Post |", edit_recipe_path(@recipe), class: "recipeEditDelete" %>
+  <%= link_to "| Delete Post", recipe_path(@recipe), class: "recipeEditDelete", method: :delete, data: { confirm: "Would you like to delete this recipe?"} %>
+</div>
+<% end %>
+
+
 
 <div class = "recipeContainer">
 
-
-    <img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/>
-
-    <div class="recipeDiv">
-      <div class="recipeDescriptionCategory">
-          <% @recipe.categorizations.each do |categorization| %>
-          <div class="categoryImageMini">
-            <%= link_to image_tag(categorization.category.img_url, class: "categoryImageMiniMini"), category_recipes_path(categorization.category) %>
-          </div>
+  <img class="recipePhoto" src="<%= @recipe.img_url %>" alt="<%= @recipe.title %>"/>
+  <div class="recipeDiv">
+    <div class="recipeDescriptionCategory">
+      <% @recipe.categorizations.each do |categorization| %>
+      <div class="categoryImageMini">
+        <%= link_to image_tag(categorization.category.img_url, class: "categoryImageMiniMini"), category_recipes_path(categorization.category) %>
+      </div>
+      <% end %>
+    </div>
+    <hr>
+    <div class="recipeDescription">
+      <p class="description">"<%= @recipe.description %>"</p>
+      <!-- <% if @recipe.reviews.average(:rating) != nil %>
+      <div class="recipeRatingStarContainer"><%= show_star(@recipe.reviews.average(:rating).round(1)) %> </div>
+      <% end %> -->
+    </div>
+    <hr>
+    <div class="recipeRatingDiv">
+      <div class="recipeDescriptionMiniDiv1">
+        <div class="recipeDescriptionMini">
+          Save it!
+        </div>
+        <div class="recipeDescriptionMini">
+          <% if @recipe.will_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
+          <%= link_to "&hearts;".html_safe, remove_will_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+          <% else %>
+          <%= link_to "&hearts;".html_safe, add_will_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
           <% end %>
+          <%#= @recipe.will_try_users.count %>
+        </div>
       </div>
-      <hr>
-      <div class="recipeDescription">
-        <p class="description">"<%= @recipe.description %>"</p>
-        <!-- <% if @recipe.reviews.average(:rating) != nil %>
-        <div class="recipeRatingStarContainer"><%= show_star(@recipe.reviews.average(:rating).round(1)) %> </div>
-        <% end %> -->
+      <div class="recipeDescriptionMiniDiv2">
+        <div class="recipeDescriptionMini">
+          I did it!
+        </div>
+        <div class="recipeDescriptionMini">
+          <% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
+          <%= link_to "&#x02713;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
+          <% else %>
+          <%= link_to "&#x02713;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
+          <% end %>
+        </div>
       </div>
-      <hr>
-      <div class="recipeRatingDiv">
-          <div class="recipeDescriptionMiniDiv1">
-            <div class="recipeDescriptionMini">
-              Save it!
-            </div>
-
-            <div class="recipeDescriptionMini">
-              <% if @recipe.will_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
-                <%= link_to "&hearts;".html_safe, remove_will_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
-              <% else %>
-                <%= link_to "&hearts;".html_safe, add_will_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
-              <% end %>
-              <%#= @recipe.will_try_users.count %>
-            </div>
-          </div>
-
-          <div class="recipeDescriptionMiniDiv2">
-              <div class="recipeDescriptionMini">
-                I did it!
-              </div>
-
-              <div class="recipeDescriptionMini">
-                <% if @recipe.did_try_users.find_by(user: current_user, recipe_id: @recipe.id) %>
-                  <%= link_to "&#x02713;".html_safe, remove_did_try_user_recipe_path(@recipe), method: :delete, class: "tryButtonOn" %>
-                <% else %>
-                  <%= link_to "&#x02713;".html_safe, add_did_try_user_recipe_path(@recipe), method: :post, class: "tryButtonOff" %>
-                <% end %>
-              </div>
-            </div>
-
-            <div class="recipeDescriptionMiniDiv3">
-                <div class="recipeDescriptionMini">
-                  Level
-                </div>
-                <div class="recipeDescriptionMini">
-                  <p class="cookingLevelText"><%=show_level(@recipe.cooking_level.to_i) %></p>
-                </div>
-            </div>
-          </div>
+      <div class="recipeDescriptionMiniDiv3">
+        <div class="recipeDescriptionMini">
+          Level
+        </div>
+        <div class="recipeDescriptionMini">
+          <p class="cookingLevelText"><%=show_level(@recipe.cooking_level.to_i) %></p>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-
 
 
   <div class="HeadContainer">
@@ -86,60 +81,68 @@
   </div>
   <hr/>
 
-    <div class="ingredientsContainer">
-          <% @ingredients.each do |ingredient| %>
-            <% if ingredient.list != "" %>
-              <div class="list"> <input id="ingredientCheckBox" type="checkbox"><label for="ingredientCheckBox"><%= ingredient.list %></label></div>
-            <% end %>
-          <%end%>
-    </div>
+  <div class="ingredientsContainer">
+    <% @ingredients.each do |ingredient| %>
+    <% if ingredient.list != "" %>
+    <div class="list"> <input id="ingredientCheckBox" type="checkbox"><label for="ingredientCheckBox"><%= ingredient.list %></label></div>
+    <% end %>
+    <%end%>
+  </div>
 
-    <div class="HeadContainer">
-      <div><img src="/assets/direction.png" class= "headImageMini"/></div>
-      <div class="headText"> Directions (Time: <%= @recipe.cooking_time %>)</div>
+  <div class="HeadContainer">
+    <div><img src="/assets/direction.png" class= "headImageMini"/></div>
+    <div class="headText"> Directions (Time: <%= @recipe.cooking_time %>)</div>
+  </div>
+  <hr/>
+
+  <div class="directionsContainer">
+    <% @directions.each do |direction| %>
+    <div class="directionsDiv">
+      <% if direction.recipe_direction != "" %>
+      <div class="number"><%= @num += 1  %>.</div>
+      <div class="directionList"><input id="directionCheckBox" type="checkbox"><label for="directionCheckBox"><%= direction.recipe_direction %></label></div>
+      <% end %>
     </div>
+    <% end %>
+    <img src="/assets/logo.png" class="logoMini">
+    <div>ENJOY!</div>
+    <hr class="hrDirection"/>
+  </div>
+
+  <div class='reviewContainer'>
+    <% if @recipe.allow_reviews == true %>
+    <div class="headText"> Review</div>
+    <% if @recipe.reviews.average(:rating) != nil %>
+    <div class="recipeRatingStarContainer">
+      <%= show_star(@recipe.reviews.average(:rating).round(1)) %> (<%= @recipe.reviews.count %>)
+    </div>
+    <% end %>
+    <% @recipe.reviews.each do |review| %>
     <hr/>
-
-      <div class="directionsContainer">
-
-        <% @directions.each do |direction| %>
-        <div class="directionsDiv">
-          <% if direction.recipe_direction != "" %>
-          <div class="number"><%= @num += 1  %>.</div>
-          <div class="directionList"><input id="directionCheckBox" type="checkbox"><label for="directionCheckBox"><%= direction.recipe_direction %></label></div>
-          <% end %>
-        </div>
-        <% end %>
-        <hr class="hrDirection"/>
+    <div class="reviewDiv">
+      <div class="reviewCommentText">" <%= review.comment %> "</div>
+      <div><%= show_star(review.rating.to_i) %></div>
+      <% if current_user == review.user %>
+      <div class="reviewEditDiv">
+        <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>
+        <span class="reviewEditSpace">|</span>
+        <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
+      </div>
+      <% else %>
+      <div>by <%= review.user.email %></div>
+      <% end %>
     </div>
+    <% end %>
 
-<div class='reviewContainer'>
-  <% if @recipe.allow_reviews == true %>
-      <h3>Review</h3>
-      <% if @recipe.reviews.average(:rating) != nil %>
-      <div class="recipeRatingStarContainer"><%= show_star(@recipe.reviews.average(:rating).round(1)) %> (<%= @recipe.reviews.count %>)</div>
-      <% end %>
-      <% @recipe.reviews.each do |review| %>
-        <hr/>
-        <div class="reviewDiv">
-          <div><%= review.rating %></div>
-          <div><%= review.comment %> by 	<%= review.user.email %></div>
-          <% if current_user == review.user %>
-          <div class="reviewEditDiv">
-              <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>|
-              <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
-          </div>
-          <% end %>
-        </div>
-      <% end %>
+    <hr/>
+    <input id="reviewCheckBox" type="checkbox">Create Review<label for="reviewCheckBox">  <%= render "reviews/form" %> </label>
 
-      <hr/>
-      <input id="reviewCheckBox" type="checkbox">Create Review<label for="reviewCheckBox">  <%= render "reviews/form" %> </label>
+    <% else %>
+    <hr/>
+    <div >*Reviews Not Allowed*</div>
+    <hr/>
+    <% end %>
+    <p >CookingMyself,<span class="reviewBottomTitle"> "<%= @recipe.title %>"</span></p>
+  </div>
 
-  <% else %>
-  <hr/>
-  <div >*This recipe does not allow reviews*</div>
-  <hr/>
-  <% end %>
-  <p >CookingMyself,<span class="reviewBottomTitle"> "<%= @recipe.title %>"</span></p>
 </div>

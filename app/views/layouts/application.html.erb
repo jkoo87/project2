@@ -14,29 +14,31 @@
               <%= link_to image_tag("logo.png", class: "logo"),root_path%>
             </div>
         <% end %>
+      <div>
+        <nav class="mainNav">
 
-      <nav class="mainNav">
-
-        <% if current_page? root_path  %>
-        <div class="mainNavMenu"><%= link_to 'List All Recipes', recipes_path %></div>
-        <% else %>
-        <div class="mainNavMenu"><%= link_to 'Main', root_path %></div>
-        <% end %>
-        <div class="mainNavMenu"><%= link_to 'Create Recipes', new_recipe_path %></div>
-
-        <% unless current_page?(root_path)  %>
-          <div class="logoNavMenu"><%= link_to image_tag("logo.png", class: "logoNav"),root_path%></div>
-        <% end %>
-
-          <% if current_user %>
-            <div class="mainNavMenu"><%= link_to 'User Account', destroy_user_session_path, :method => :delete %></div>
-            <div class="mainNavMenu"><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, data: { confirm: "Would you like to sign out?"} %></div>
+          <% if current_page? root_path  %>
+          <div class="mainNavMenu"><%= link_to 'List All Recipes', recipes_path %></div>
           <% else %>
-            <div class="mainNavMenu"><%= link_to 'Sign In', new_user_session_path %></div>
-            <div class="mainNavMenu"><%= link_to 'Sign Up', new_user_registration_path %></div>
+          <div class="mainNavMenu"><%= link_to 'Main', root_path %></div>
+          <% end %>
+          <div class="mainNavMenu"><%= link_to 'Create Recipes', new_recipe_path %></div>
+
+          <% unless current_page?(root_path)  %>
+            <div class="logoNavMenu"><%= link_to image_tag("logo.png", class: "logoNav"),root_path%></div>
           <% end %>
 
-      </nav>
+            <% if current_user %>
+              <div class="mainNavMenu"><%= link_to 'User Account', destroy_user_session_path, :method => :delete %></div>
+              <div class="mainNavMenu"><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, data: { confirm: "Would you like to sign out?"} %></div>
+            <% else %>
+              <div class="mainNavMenu"><%= link_to 'Sign In', new_user_session_path %></div>
+              <div class="mainNavMenu"><%= link_to 'Sign Up', new_user_registration_path %></div>
+            <% end %>
+
+        </nav>
+      </div>
+
 
 
 
@@ -47,5 +49,12 @@
       <div class ="mainBody">
         <%= yield %>
       </div>
+      <div>
+      <footer>
+        <div>Created by Jeong Hoon Koo</div>
+        <div>junghonge17@gmail.com</div>
+      </footer>
+    </div>
   </body>
+
 </html>

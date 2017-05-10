@@ -47,6 +47,28 @@
   <% end %>
 
 
+
+
+
+
+
+  <div class="formDiv">
+    <%= f.label "Tag", class: "formTextLabel" %>
+  </div>
+      <div class="formDiv">
+        <% @categories.each do |category| %>
+        <%= link_to image_tag(category.img_url, class: "categoryImageTag") %>
+        <% end %>
+      </div>
+
+
+
+
+
+
+
+
+
   <div class="formDiv">
     <%= f.label "Allows Reviews", class: "formTextLabel"  %>
     <%= f.label "Yes", class: "radioButtonLabel"  %>
@@ -90,4 +112,4 @@
 
 
 <% end  %>
-<div>
+</div>

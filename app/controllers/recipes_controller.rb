@@ -74,6 +74,20 @@ class RecipesController < ApplicationController
 
 
 
+  def add_categorizations
+    @recipe = Recipe.new
+    @recipe = Recipe.create!(recipe_params.merge(user: current_user ))
+    redirect_to :back
+  end
+
+
+  def remove_categorizations
+    WillTryUser.find_by(user: current_user, recipe_id: params[:id]).destroy
+    redirect_to :back
+  end
+
+
+
 
 
 
