@@ -124,8 +124,8 @@
       <div><%= show_star(review.rating.to_i) %></div>
       <% if current_user == review.user %>
       <div class="reviewEditDiv">
-        <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>
-        <span class="reviewEditSpace">|</span>
+        <!-- <%= link_to "Edit", edit_recipe_review_path(@recipe, review) %>
+        <span class="reviewEditSpace">|</span> -->
         <%= link_to "Delete", recipe_review_path(@recipe, review), method: :delete, data: { confirm: "Would you like to delete this review?"} %>
       </div>
       <% else %>

@@ -219,7 +219,7 @@ a{
 
 .submitButton {
   font-weight: bold;
-  font-size: 50px;
+  font-size: 15px;
   width: 100px;
 }
 
@@ -295,7 +295,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
   font-size: 20px;
   font-weight: bold;
   height:50px;
-  overflow:scroll;
+  overflow:hidden;
   filter: drop-shadow(2px 2px 2px orange);
 }
 
@@ -332,8 +332,8 @@ input[id="ingredientFormCheckBox"]:checked + label {
     content:'\2605';
     color: gold;
     position: absolute;
-    margin-left: -14px;
-    width: 7px;
+    margin-left: -15px;
+    width: 7.5px;
     overflow: hidden;
 }
 
@@ -387,12 +387,13 @@ input[id="ingredientFormCheckBox"]:checked + label {
 }
 
 .recipeRatingStarContainer {
-  font-size: 200%;
+  /*font-size: 200%;*/
+  font-size: 28px;
 }
 
 .recipeRatingStarContainer > .star.half:after {
-  margin-left: -28px;
-  width: 14px;
+  margin-left: -27px;
+  width: 13.5px;
 }
 
 
@@ -418,6 +419,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
 }
 
 .description{
+    font-size: 17px;
     width: 60%;
     margin: 0 auto;
 }
@@ -515,6 +517,7 @@ input[id="ingredientCheckBox"]:checked + label {
 }
 
 .directionsDiv {
+  font-size: 18px;
   display: flex;
   flex-wrap: wrap;
   justify-content:center;
@@ -547,6 +550,7 @@ input[id="ingredientCheckBox"]:checked + label {
   position: absolute;
   left: -30px;
   height: 100%;
+  width: 30px;
 }
 
 input[id="directionCheckBox"]:checked + label {
@@ -591,6 +595,7 @@ input[id="reviewCheckBox"]:checked + label {
   display: inline;
 }
 .reviewBottomTitle{
+  font-size: 20px;
   color: gold;
   filter: drop-shadow(1px 1px 1px black);
   font-style:italic;
