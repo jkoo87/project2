@@ -124,7 +124,7 @@ a{
   height: 100px;
   border: groove 5px grey;
   margin: 5px 15px 5px 15px;
-  border-radius: 15px;
+  /*border-radius: 15px;*/
   filter: drop-shadow(3px 2px 1px black);
   opacity: 0.7;
   transition: all 0.7s ease;
@@ -145,8 +145,7 @@ a{
   visibility:visible;
   font-size: 30px;
   opacity: 1;
-  width: 105px;
-  height: 105px;
+  border-radius: 15px;
   box-shadow: inset 0px -139px 60px -112px rgba(230,55,55,1);
   filter: drop-shadow(1px 3px 10px yellow);
 }
@@ -172,6 +171,7 @@ a{
 
 
 .formContainer {
+  font-family: 'Ek Mukta', sans-serif;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   border-radius: 30px;
@@ -346,6 +346,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   border-radius: 30px;
   margin:30px 0 50px 0;
+  font-family: 'Ek Mukta', sans-serif;
 }
 
 
@@ -422,6 +423,7 @@ input[id="ingredientFormCheckBox"]:checked + label {
     font-size: 17px;
     width: 60%;
     margin: 0 auto;
+    font-weight: bold;
 }
 
 .recipePhoto {
@@ -535,7 +537,6 @@ input[id="ingredientCheckBox"]:checked + label {
   width: 80%;
   text-align: left;
   transition: all 0.7s ease;
-  font-weight: bold;
   display: flex;
   position: relative;
 }
@@ -550,7 +551,7 @@ input[id="ingredientCheckBox"]:checked + label {
   position: absolute;
   left: -30px;
   height: 100%;
-  width: 30px;
+  width: 15px;
 }
 
 input[id="directionCheckBox"]:checked + label {
